@@ -15,7 +15,7 @@ export class DataStorageService {
   ) {}
 
   storeRecipes() {
-    const covidCaseList = this.covidCaseService.getRecipes();
+    const covidCaseList = this.covidCaseService.getCovidCases();
     this.http
       .put(
         'https://ng-complete-guide-6523c.firebaseio.com/covidCaseList.json',
@@ -40,7 +40,7 @@ export class DataStorageService {
           });
         }),
         tap(covidCaseList => {
-          this.covidCaseService.setRecipes(covidCaseList);
+          this.covidCaseService.setCovidCases(covidCaseList);
         })
       );
   }

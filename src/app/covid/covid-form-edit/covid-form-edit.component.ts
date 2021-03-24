@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 
 import { CovidCaseService } from '../covidCase.service';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { CovidCase } from '../covidCase.model';
 
 @Component({
   selector: 'app-covid-form-edit',
@@ -13,6 +14,8 @@ import { DataStorageService } from 'src/app/shared/data-storage.service';
 export class CovidFormEditComponent implements OnInit {
   id: number;
   editMode = false;
+  editedCovidCaseIndex = -1;
+  editedCovidcase: CovidCase = null;
   covidForm: FormGroup;
 
   constructor(
@@ -28,6 +31,17 @@ export class CovidFormEditComponent implements OnInit {
       this.editMode = params['id'] != null;
       this.initForm();
     });
+
+    this.covidCaseService.covidCaseEditStarted.subscribe(index => {
+      this.editedCovidCaseIndex = index;
+      this.editedCovidcase = this.covidCaseService.getCovidCase(index);
+      this.editMode = true;
+      this.covidForm.setValue({
+        patientName: this.editedCovidcase.patientName,
+        phoneNumber: this.editedCovidcase.phoneNumber,
+        //gender: covidCase.gender,
+      })
+    })
   }
 
   onSubmit() {
@@ -39,9 +53,9 @@ export class CovidFormEditComponent implements OnInit {
       userType: string
     } = JSON.parse(localStorage.getItem('userData'))
     if (this.editMode) {
-      this.covidCaseService.updateRecipe(this.id, {...this.covidForm.value, createdBy: userData.email});
+      this.covidCaseService.updateCovidCase(this.id, {...this.covidForm.value, createdBy: userData.email});
     } else {
-      this.covidCaseService.addRecipe({...this.covidForm.value, createdBy: userData.email});
+      this.covidCaseService.addCovidCase({...this.covidForm.value, createdBy: userData.email});
       this.dataStorageService.storeRecipes();
     }
     this.onCancel();
@@ -58,7 +72,7 @@ export class CovidFormEditComponent implements OnInit {
     let recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
-      const recipe = this.covidCaseService.getRecipe(this.id);
+      const recipe = this.covidCaseService.getCovidCase(this.id);
       patientName = recipe.patientName;
       phoneNumber = recipe.phoneNumber;
     }

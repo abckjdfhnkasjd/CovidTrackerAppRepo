@@ -26,7 +26,7 @@ export class CovidListComponent implements OnInit, OnDestroy {
           this.covidCaseList = covidCaseList;
         }
       );
-    this.covidCaseList = this.covidCaseService.getRecipes();
+    this.covidCaseList = this.covidCaseService.getCovidCases();
   }
 
   onNewCovid() {

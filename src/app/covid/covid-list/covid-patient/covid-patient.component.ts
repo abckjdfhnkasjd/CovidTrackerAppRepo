@@ -44,4 +44,9 @@ export class CovidPatientComponent implements OnInit {
   }
 
  displayedColumns: string[] = ['Patient Name', 'Phone Number', "Gender", "State"];
+
+ selectRecord = (index) => {
+    console.log(index);
+    this.covidCaseService.onSelectCovidcase(index);
+ }
 }

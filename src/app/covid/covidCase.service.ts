@@ -6,36 +6,41 @@ import { CovidCase } from './covidCase.model';
 @Injectable()
 export class CovidCaseService {
   covidcaseListChanged = new Subject<CovidCase[]>();
+  covidCaseEditStarted = new Subject<number>();
 
   private covidCaseList: CovidCase[] = [];
 
   constructor() {}
 
-  setRecipes(covidCaseList: CovidCase[]) {
+  setCovidCases(covidCaseList: CovidCase[]) {
     this.covidCaseList = covidCaseList;
     this.covidcaseListChanged.next(this.covidCaseList.slice());
   }
 
-  getRecipes() {
+  getCovidCases() {
     return this.covidCaseList.slice();
   }
 
-  getRecipe(index: number) {
+  getCovidCase(index: number) {
     return this.covidCaseList[index];
   }
 
-  addRecipe(covidCaseList: CovidCase) {
+  addCovidCase(covidCaseList: CovidCase) {
     this.covidCaseList.push(covidCaseList);
     this.covidcaseListChanged.next(this.covidCaseList.slice());
   }
 
-  updateRecipe(index: number, newCovidCase: CovidCase) {
+  updateCovidCase(index: number, newCovidCase: CovidCase) {
     this.covidCaseList[index] = newCovidCase;
     this.covidcaseListChanged.next(this.covidCaseList.slice());
   }
 
-  deleteRecipe(index: number) {
+  deleteCovidCase(index: number) {
     this.covidCaseList.splice(index, 1);
     this.covidcaseListChanged.next(this.covidCaseList.slice());
+  }
+
+  onSelectCovidcase(index: number) {
+    this.covidCaseEditStarted.next(index);
   }
 }

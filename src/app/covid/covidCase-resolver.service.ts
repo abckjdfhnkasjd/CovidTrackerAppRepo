@@ -17,7 +17,7 @@ export class CovidCaseResolverService implements Resolve<CovidCase[]> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const recipes = this.covidCaseService.getRecipes();
+    const recipes = this.covidCaseService.getCovidCases();
 
     if (recipes.length === 0) {
       return this.dataStorageService.fetchRecipes();

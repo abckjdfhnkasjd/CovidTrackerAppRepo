@@ -6,7 +6,7 @@
           <button
             type="submit"
             class="btn btn-success"
-            [disabled]="!covidForm.valid">Save</button>
+            [disabled]="!covidForm.valid">{{editMode ? 'Update' : 'Save'}}</button>
           <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
         </div>
       </div>
