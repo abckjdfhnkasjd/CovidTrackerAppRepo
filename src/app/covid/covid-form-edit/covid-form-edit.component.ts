@@ -58,7 +58,11 @@ export class CovidFormEditComponent implements OnInit {
       this.covidCaseService.addCovidCase({...this.covidForm.value, createdBy: userData.email});
       this.dataStorageService.storeRecipes();
     }
-    this.onCancel();
+    this.editMode = false;
+    this.editedCovidCaseIndex = -1;
+    this.editedCovidcase = null;
+
+    //this.onCancel();
   }
 
   onCancel() {
