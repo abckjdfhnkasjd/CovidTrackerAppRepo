@@ -10,8 +10,8 @@
     {{ covidCase.phoneNumber }}
   </div>
 </a> -->
-
-<table mat-table [dataSource] = "dataSource" class = "mat-elevation-z8" style="margin:auto"> 
+<input type="text" style="float: right; border-radius: 5px;margin-bottom: 5px;width: 25%;" placeholder="Filter Data..." (keyup)="applyFilter($event.target.value)">
+<table mat-table [dataSource] = "dataSource" class = "mat-elevation-z8" style="margin:auto">
   <ng-container matColumnDef = "Patient Name">
      <th mat-header-cell *matHeaderCellDef> Patient Name</th>
      <td mat-cell *matCellDef = "let element"> {{element.patientName}} </td>

@@ -17,6 +17,7 @@ export class CovidFormEditComponent implements OnInit {
   editedCovidCaseIndex = -1;
   editedCovidcase: CovidCase = null;
   covidForm: FormGroup;
+  gender = ['Male', 'Female'];
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +40,7 @@ export class CovidFormEditComponent implements OnInit {
       this.covidForm.setValue({
         patientName: this.editedCovidcase.patientName,
         phoneNumber: this.editedCovidcase.phoneNumber,
-        //gender: covidCase.gender,
+        gender: this.editedCovidcase.gender,
       })
     })
   }
@@ -73,14 +74,15 @@ export class CovidFormEditComponent implements OnInit {
     let phoneNumber = '';
 
     if (this.editMode) {
-      const recipe = this.covidCaseService.getCovidCase(this.id);
-      patientName = recipe.patientName;
-      phoneNumber = recipe.phoneNumber;
+      const covidCase = this.covidCaseService.getCovidCase(this.id);
+      patientName = covidCase.patientName;
+      phoneNumber = covidCase.phoneNumber;
     }
 
     this.covidForm = new FormGroup({
       patientName: new FormControl(patientName, Validators.required),
-      phoneNumber: new FormControl(phoneNumber, Validators.required)
+      phoneNumber: new FormControl(phoneNumber, Validators.required),
+      gender: new FormControl('Female', Validators.required),
     });
   }
 }

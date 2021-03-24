@@ -18,6 +18,7 @@ export class CovidPatientComponent implements OnInit {
   covidCaseList: CovidCase[];
   subscription: Subscription;
   dataSource: CovidCase[] =[];
+  dataSourceCopy:CovidCase[];
 
   constructor(private covidCaseService: CovidCaseService,
       private dataStorageService: DataStorageService) {}
@@ -44,7 +45,7 @@ export class CovidPatientComponent implements OnInit {
         this.covidCaseList = covidCaseList.filter(covidCase => {
           return (userData.email==="admin@gmail.com" || covidCase.createdBy === userData.email);
         });
-        this.dataSource = this.covidCaseList;
+        this.dataSource = this.dataSourceCopy = this.covidCaseList;
       })
   }
 
@@ -53,5 +54,16 @@ export class CovidPatientComponent implements OnInit {
  selectRecord = (index) => {
     console.log(index);
     this.covidCaseService.onSelectCovidcase(index);
+ }
+
+ applyFilter(filteredString) {
+  console.log(filteredString);
+  this.dataSource = filteredString != "" ? this.dataSourceCopy.filter(covidCase => {
+    let kept = (covidCase.patientName && covidCase.patientName.includes(filteredString) )
+                || (covidCase.phoneNumber && covidCase.phoneNumber.includes(filteredString)) 
+                || (covidCase.gender && covidCase.gender.includes(filteredString))
+                || (covidCase.state && covidCase.state.includes(filteredString))
+    return kept;
+  }) : this.dataSourceCopy;
  }
 }
