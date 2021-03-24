@@ -29,9 +29,16 @@
           <div class="form-group">
             <label for="gender">Gender</label>
             <select name="gender" id="gender" class="form-control" formControlName="gender">
+              <option value="">--Select--</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-group">
+            <label for="phoneNumber">State</label>
+            <input type="text" id="state" formControlName="state" class="form-control" #state/>
           </div>
         </div>
       </div>

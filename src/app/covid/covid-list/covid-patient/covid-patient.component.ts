@@ -36,7 +36,10 @@ export class CovidPatientComponent implements OnInit {
     this.subscription = this.covidCaseService.covidcaseListChanged
       .subscribe(
         (covidCaseList: CovidCase[]) => {
-          this.covidCaseList = covidCaseList.filter(covidCase => {
+          this.covidCaseList = covidCaseList.map((covidCase,index) => {
+            return {...covidCase, id: index};
+          })
+          .filter(covidCase => {
             return (userData.email==="admin@gmail.com" || covidCase.createdBy === userData.email);
           });
           this.dataSource = this.covidCaseList;
@@ -45,7 +48,9 @@ export class CovidPatientComponent implements OnInit {
       )
       this.dataStorageService.fetchCovidCases()
       .subscribe((covidCaseList) => {
-        this.covidCaseList = covidCaseList.filter(covidCase => {
+        this.covidCaseList = covidCaseList.map((covidCase,index) => {
+          return {...covidCase, id: index};
+        }).filter(covidCase => {
           return (userData.email==="admin@gmail.com" || covidCase.createdBy === userData.email);
         });
         this.dataSource = this.dataSourceCopy = this.covidCaseList;
@@ -63,11 +68,15 @@ export class CovidPatientComponent implements OnInit {
  applyFilter(filteredString) {
   console.log(filteredString);
   this.dataSource = filteredString != "" ? this.dataSourceCopy.filter(covidCase => {
-    let kept = (covidCase.patientName && covidCase.patientName.includes(filteredString) )
-                || (covidCase.phoneNumber && covidCase.phoneNumber.includes(filteredString)) 
-                || (covidCase.gender && covidCase.gender.includes(filteredString))
-                || (covidCase.state && covidCase.state.includes(filteredString))
+    let kept =   this.contains(covidCase.patientName, filteredString) 
+                || this.contains(covidCase.phoneNumber, filteredString)
+                || this.contains(covidCase.gender, filteredString)
+                || this.contains(covidCase.state, filteredString)
     return kept;
   }) : this.dataSourceCopy;
+ }
+
+ contains(str, filteredStr) {
+  return (str && str.toLowerCase().includes(filteredStr.toLowerCase()));
  }
 }

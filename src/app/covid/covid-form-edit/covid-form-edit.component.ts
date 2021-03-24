@@ -38,9 +38,10 @@ export class CovidFormEditComponent implements OnInit {
       this.editedCovidcase = this.covidCaseService.getCovidCase(index);
       this.editMode = true;
       this.covidForm.setValue({
-        patientName: this.editedCovidcase.patientName,
-        phoneNumber: this.editedCovidcase.phoneNumber,
-        gender: this.editedCovidcase.gender,
+        patientName: this.editedCovidcase.patientName ? this.editedCovidcase.patientName : '',
+        phoneNumber: this.editedCovidcase.phoneNumber ? this.editedCovidcase.phoneNumber : '',
+        gender: this.editedCovidcase.gender ? this.editedCovidcase.gender : '',
+        state: this.editedCovidcase.state ? this.editedCovidcase.state : ''
       })
     })
   }
@@ -63,7 +64,12 @@ export class CovidFormEditComponent implements OnInit {
   }
   
   onClear() {
-    this.covidForm.reset();
+    this.covidForm.reset({
+      patientName: '',
+      phoneNumber: '',
+      gender: '',
+      state: ''
+    });
     this.editMode = false;
     this.editedCovidCaseIndex = -1;
     this.editedCovidcase = null;
@@ -82,7 +88,8 @@ export class CovidFormEditComponent implements OnInit {
     this.covidForm = new FormGroup({
       patientName: new FormControl(patientName, Validators.required),
       phoneNumber: new FormControl(phoneNumber, Validators.required),
-      gender: new FormControl('Female', Validators.required),
+      gender: new FormControl('', Validators.required),
+      state: new FormControl('', Validators.required),
     });
   }
 }
