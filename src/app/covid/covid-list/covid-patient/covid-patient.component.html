@@ -1,15 +1,3 @@
-<!-- <a
-  style="cursor: pointer;"
-  [routerLink]="[index]"
-  routerLinkActive="active"
-  class="list-group-item clearfix">
-  <div class="pull-left">
-    <h4 class="list-group-item-heading">{{ covidCase.patientName }}</h4>
-  </div>
-  <div>
-    {{ covidCase.phoneNumber }}
-  </div>
-</a> -->
 <input type="text" style="float: right; border-radius: 5px;margin-bottom: 5px;width: 25%;" placeholder="Filter Data..." (keyup)="applyFilter($event.target.value)">
 <table mat-table [dataSource] = "dataSource" class = "mat-elevation-z8" style="margin:auto">
   <ng-container matColumnDef = "Patient Name">
@@ -31,4 +19,7 @@
   <tr mat-header-row *matHeaderRowDef = "displayedColumns"></tr>
   <tr class="dummy" mat-row *matRowDef = "let row; columns: displayedColumns; let i=index;" (click)="selectRecord(i)" style="cursor: pointer"></tr>
 </table>
-<div *ngIf="dataSource.length === 0" style="text-align: center;font-weight: bold;">No records found</div>
+<div style="text-align: center;font-weight: bold;">
+  <app-loading-spinner *ngIf="isLoading" ></app-loading-spinner>
+  <p *ngIf="dataSource.length === 0 && !isLoading">No Data Available</p>
+</div>

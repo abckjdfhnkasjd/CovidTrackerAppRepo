@@ -19,6 +19,7 @@ export class CovidPatientComponent implements OnInit {
   subscription: Subscription;
   dataSource: CovidCase[] =[];
   dataSourceCopy:CovidCase[];
+  isLoading = false;
 
   constructor(private covidCaseService: CovidCaseService,
       private dataStorageService: DataStorageService) {}
@@ -31,6 +32,7 @@ export class CovidPatientComponent implements OnInit {
       _tokenExpirationDate: string;
       userType: string
     } = JSON.parse(localStorage.getItem('userData'));
+    this.isLoading = true;
     this.subscription = this.covidCaseService.covidcaseListChanged
       .subscribe(
         (covidCaseList: CovidCase[]) => {
@@ -38,6 +40,7 @@ export class CovidPatientComponent implements OnInit {
             return (userData.email==="admin@gmail.com" || covidCase.createdBy === userData.email);
           });
           this.dataSource = this.covidCaseList;
+          this.isLoading = false;
         }
       )
       this.dataStorageService.fetchCovidCases()
@@ -46,6 +49,7 @@ export class CovidPatientComponent implements OnInit {
           return (userData.email==="admin@gmail.com" || covidCase.createdBy === userData.email);
         });
         this.dataSource = this.dataSourceCopy = this.covidCaseList;
+        this.isLoading = false;
       })
   }
 
