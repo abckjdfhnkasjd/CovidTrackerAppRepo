@@ -1,5 +1,6 @@
+<p style="float: left;margin: 10px;"><strong>Total Covid cases: </strong></p>
 <input type="text" 
-  style="float: right; border-radius: 5px;margin-bottom: 15px;width: 25%;height: 35px;    font-size: 15px;" placeholder="Filter Data..." (keyup)="applyFilter($event.target.value)">
+  style="float: right; border-radius: 5px;margin-bottom: 15px;width: 25%;height: 30px;    font-size: 15px;" placeholder="Filter Data..." (keyup)="applyFilter($event.target.value)">
 <table mat-table [dataSource] = "dataSource" class = "mat-elevation-z8" style="margin:auto">
   <ng-container matColumnDef = "Patient Name">
      <th mat-header-cell *matHeaderCellDef> Patient Name</th>
