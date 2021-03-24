@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li routerLinkActive="active" *ngIf="isAuthenticated">
-          <a routerLink="/covid-details">COVID-19 Form</a>
+          <a routerLink="/covid-details">{{userType==='admin' ? 'Covid List' : 'COVID-19 Form'}}</a>
         </li>
         <li routerLinkActive="active" *ngIf="!isAuthenticated">
           <a routerLink="/auth">Authenticate</a>

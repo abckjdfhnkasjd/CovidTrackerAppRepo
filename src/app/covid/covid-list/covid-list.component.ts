@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { Subscription } from 'rxjs';
 
-// import { CovidCase } from '../covidCase.model';
 import { CovidCaseService } from '../covidCase.service';
 
 @Component({
@@ -10,9 +8,9 @@ import { CovidCaseService } from '../covidCase.service';
   templateUrl: './covid-list.component.html',
   styleUrls: ['./covid-list.component.css']
 })
-export class CovidListComponent implements OnInit, OnDestroy {
-  // covidCaseList: CovidCase[];
-  // subscription: Subscription;
+export class CovidListComponent implements OnInit {
+
+  userType;
 
   constructor(private covidCaseService: CovidCaseService,
               private router: Router,
@@ -20,20 +18,13 @@ export class CovidListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.subscription = this.covidCaseService.covidcaseListChanged
-    //   .subscribe(
-    //     (covidCaseList: CovidCase[]) => {
-    //       this.covidCaseList = covidCaseList;
-    //     }
-    //   );
-    // this.covidCaseList = this.covidCaseService.getCovidCases();
-  }
-
-  // onNewCovid() {
-  //   this.router.navigate(['new'], {relativeTo: this.route});
-  // }
-
-  ngOnDestroy() {
-    // this.subscription.unsubscribe();
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+      userType: string
+    } = JSON.parse(localStorage.getItem('userData'));
+    this.userType = userData.userType;
   }
 }
