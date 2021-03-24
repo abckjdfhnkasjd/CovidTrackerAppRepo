@@ -1,0 +1,34 @@
+<!-- <a
+  style="cursor: pointer;"
+  [routerLink]="[index]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{ covidCase.patientName }}</h4>
+  </div>
+  <div>
+    {{ covidCase.phoneNumber }}
+  </div>
+</a> -->
+
+<table mat-table [dataSource] = "dataSource" class = "mat-elevation-z8" style="margin:auto"> 
+  <ng-container matColumnDef = "Patient Name">
+     <th mat-header-cell *matHeaderCellDef> Patient Name</th>
+     <td mat-cell *matCellDef = "let element"> {{element.patientName}} </td>
+  </ng-container>
+  <ng-container matColumnDef = "Phone Number">
+     <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+     <td mat-cell *matCellDef = "let element"> {{element.phoneNumber}} </td>
+  </ng-container>
+  <ng-container matColumnDef = "Gender">
+      <th mat-header-cell *matHeaderCellDef>Gender</th>
+      <td mat-cell *matCellDef = "let element"> {{element.gender}} </td>
+   </ng-container>
+   <ng-container matColumnDef = "State">
+    <th mat-header-cell *matHeaderCellDef>State</th>
+    <td mat-cell *matCellDef = "let element"> {{element.state}} </td>
+ </ng-container>
+  <tr mat-header-row *matHeaderRowDef = "displayedColumns"></tr>
+  <tr mat-row *matRowDef = "let row; columns: displayedColumns;"></tr>
+</table>
+<div *ngIf="dataSource.length === 0" style="text-align: center;font-weight: bold;">No records found</div>

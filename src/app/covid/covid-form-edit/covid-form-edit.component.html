@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="covidForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12 btn-toolbar">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!covidForm.valid">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="patientName">Patient Name</label>
+            <input type="text" id="patientName" formControlName="patientName" class="form-control"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" #phoneNumber/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
