@@ -53,27 +53,24 @@ export class CovidFormEditComponent implements OnInit {
       userType: string
     } = JSON.parse(localStorage.getItem('userData'))
     if (this.editMode) {
-      this.covidCaseService.updateCovidCase(this.id, {...this.covidForm.value, createdBy: userData.email});
+      this.covidCaseService.updateCovidCase(this.editedCovidCaseIndex, {...this.covidForm.value, createdBy: userData.email});
     } else {
       this.covidCaseService.addCovidCase({...this.covidForm.value, createdBy: userData.email});
-      this.dataStorageService.storeRecipes();
     }
+    this.dataStorageService.storeCovidCases();
+    this.onClear();
+    this.covidForm.reset();
+  }
+
+  onClear() {
     this.editMode = false;
     this.editedCovidCaseIndex = -1;
     this.editedCovidcase = null;
-
-    //this.onCancel();
-  }
-
-  onCancel() {
-    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   private initForm() {
     let patientName = '';
     let phoneNumber = '';
-    let recipeDescription = '';
-    let recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
       const recipe = this.covidCaseService.getCovidCase(this.id);

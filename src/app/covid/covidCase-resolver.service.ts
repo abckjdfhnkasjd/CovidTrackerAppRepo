@@ -20,7 +20,7 @@ export class CovidCaseResolverService implements Resolve<CovidCase[]> {
     const recipes = this.covidCaseService.getCovidCases();
 
     if (recipes.length === 0) {
-      return this.dataStorageService.fetchRecipes();
+      return this.dataStorageService.fetchCovidCases();
     } else {
       return recipes;
     }

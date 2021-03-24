@@ -14,7 +14,7 @@ export class DataStorageService {
     private authService: AuthService
   ) {}
 
-  storeRecipes() {
+  storeCovidCases() {
     const covidCaseList = this.covidCaseService.getCovidCases();
     this.http
       .put(
@@ -26,7 +26,7 @@ export class DataStorageService {
       });
   }
 
-  fetchRecipes() {
+  fetchCovidCases() {
     return this.http
       .get<CovidCase[]>(
         'https://ng-complete-guide-6523c.firebaseio.com/covidCaseList.json'

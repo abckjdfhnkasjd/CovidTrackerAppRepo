@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+// import { Subscription } from 'rxjs';
 
-import { CovidCase } from '../covidCase.model';
+// import { CovidCase } from '../covidCase.model';
 import { CovidCaseService } from '../covidCase.service';
 
 @Component({
@@ -11,8 +11,8 @@ import { CovidCaseService } from '../covidCase.service';
   styleUrls: ['./covid-list.component.css']
 })
 export class CovidListComponent implements OnInit, OnDestroy {
-  covidCaseList: CovidCase[];
-  subscription: Subscription;
+  // covidCaseList: CovidCase[];
+  // subscription: Subscription;
 
   constructor(private covidCaseService: CovidCaseService,
               private router: Router,
@@ -20,20 +20,20 @@ export class CovidListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.covidCaseService.covidcaseListChanged
-      .subscribe(
-        (covidCaseList: CovidCase[]) => {
-          this.covidCaseList = covidCaseList;
-        }
-      );
-    this.covidCaseList = this.covidCaseService.getCovidCases();
+    // this.subscription = this.covidCaseService.covidcaseListChanged
+    //   .subscribe(
+    //     (covidCaseList: CovidCase[]) => {
+    //       this.covidCaseList = covidCaseList;
+    //     }
+    //   );
+    // this.covidCaseList = this.covidCaseService.getCovidCases();
   }
 
-  onNewCovid() {
-    this.router.navigate(['new'], {relativeTo: this.route});
-  }
+  // onNewCovid() {
+  //   this.router.navigate(['new'], {relativeTo: this.route});
+  // }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }

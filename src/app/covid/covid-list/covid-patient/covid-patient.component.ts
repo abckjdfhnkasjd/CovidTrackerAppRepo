@@ -4,6 +4,7 @@ import { CovidCase } from '../../covidCase.model';
 import { CovidCaseService } from '../../covidCase.service';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-covid-patient',
@@ -22,24 +23,28 @@ export class CovidPatientComponent implements OnInit {
       private dataStorageService: DataStorageService) {}
 
   ngOnInit() {
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+      userType: string
+    } = JSON.parse(localStorage.getItem('userData'));
     this.subscription = this.covidCaseService.covidcaseListChanged
       .subscribe(
         (covidCaseList: CovidCase[]) => {
-          const userData: {
-            email: string;
-            id: string;
-            _token: string;
-            _tokenExpirationDate: string;
-            userType: string
-          } = JSON.parse(localStorage.getItem('userData'));
           this.covidCaseList = covidCaseList.filter(covidCase => {
-            return covidCase.createdBy === userData.email;
+            return (userData.email==="admin@gmail.com" || covidCase.createdBy === userData.email);
           });
           this.dataSource = this.covidCaseList;
         }
-      );
-      this.dataStorageService.fetchRecipes().subscribe((covidCaseList) => {
-        this.dataSource = covidCaseList;
+      )
+      this.dataStorageService.fetchCovidCases()
+      .subscribe((covidCaseList) => {
+        this.covidCaseList = covidCaseList.filter(covidCase => {
+          return (userData.email==="admin@gmail.com" || covidCase.createdBy === userData.email);
+        });
+        this.dataSource = this.covidCaseList;
       })
   }
 

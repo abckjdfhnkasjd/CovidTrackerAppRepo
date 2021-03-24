@@ -21,7 +21,7 @@ export class CovidChartComponent implements OnInit {
   constructor(private dataStorageService: DataStorageService) {}
 
   ngOnInit() {
-    this.dataStorageService.fetchRecipes().subscribe(covidList => {
+    this.dataStorageService.fetchCovidCases().subscribe(covidList => {
         this.covidCaseList = covidList;
         this.appUserCount1 = this.covidCaseList.length;
 
