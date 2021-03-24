@@ -59,11 +59,10 @@ export class CovidFormEditComponent implements OnInit {
     }
     this.dataStorageService.storeCovidCases();
     this.onClear();
-    this.covidForm.markAsPristine();
-    this.covidForm.markAsUntouched();
   }
-
+  
   onClear() {
+    this.covidForm.reset();
     this.editMode = false;
     this.editedCovidCaseIndex = -1;
     this.editedCovidcase = null;
