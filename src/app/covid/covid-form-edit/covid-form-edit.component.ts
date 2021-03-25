@@ -41,7 +41,8 @@ export class CovidFormEditComponent implements OnInit {
         patientName: this.editedCovidcase.patientName ? this.editedCovidcase.patientName : '',
         phoneNumber: this.editedCovidcase.phoneNumber ? this.editedCovidcase.phoneNumber : '',
         gender: this.editedCovidcase.gender ? this.editedCovidcase.gender : '',
-        state: this.editedCovidcase.state ? this.editedCovidcase.state : ''
+        state: this.editedCovidcase.state ? this.editedCovidcase.state : '',
+        symptoms: this.editedCovidcase.symptoms ? this.editedCovidcase.symptoms : ''
       })
     })
   }
@@ -68,7 +69,8 @@ export class CovidFormEditComponent implements OnInit {
       patientName: '',
       phoneNumber: '',
       gender: '',
-      state: ''
+      state: '',
+      symptoms : ''
     });
     this.editMode = false;
     this.editedCovidCaseIndex = -1;
@@ -90,6 +92,7 @@ export class CovidFormEditComponent implements OnInit {
       phoneNumber: new FormControl(phoneNumber, Validators.required),
       gender: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
+      symptoms : new FormControl('', Validators.required),
     });
   }
 }

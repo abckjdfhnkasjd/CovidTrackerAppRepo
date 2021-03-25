@@ -58,7 +58,7 @@ export class CovidPatientComponent implements OnInit {
       })
   }
 
- displayedColumns: string[] = ['Patient Name', 'Phone Number', "Gender", "State"];
+ displayedColumns: string[] = ['Patient Name', 'Phone Number', "Gender", "State", "Symptoms"];
 
  selectRecord = (index) => {
     console.log(index);
@@ -72,6 +72,7 @@ export class CovidPatientComponent implements OnInit {
                 || this.contains(covidCase.phoneNumber, filteredString)
                 || this.contains(covidCase.gender, filteredString)
                 || this.contains(covidCase.state, filteredString)
+                || this.contains(covidCase.symptoms, filteredString)
     return kept;
   }) : this.dataSourceCopy;
  }
