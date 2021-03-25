@@ -7,7 +7,7 @@ const appRoutes: Routes = [
   {
     path: "covid-details",
     loadChildren: () =>
-      import("./covid/covid.module").then(m => m.RecipesModule)
+      import("./covid/covid.module").then(m => m.CovidModule)
   },
   {
     path: "covid-graph", component: CovidChartComponent

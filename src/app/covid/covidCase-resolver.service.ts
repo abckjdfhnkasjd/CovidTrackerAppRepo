@@ -17,12 +17,12 @@ export class CovidCaseResolverService implements Resolve<CovidCase[]> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const recipes = this.covidCaseService.getCovidCases();
+    const covidCases = this.covidCaseService.getCovidCases();
 
-    if (recipes.length === 0) {
+    if (covidCases.length === 0) {
       return this.dataStorageService.fetchCovidCases();
     } else {
-      return recipes;
+      return covidCases;
     }
   }
 }
